@@ -76,7 +76,7 @@ if result:
         ret = client1.publish("Cosplay/Espada", message)
 
 # Crear columnas para los controles manuales
-col1 = st.columns(2)
+col1, col2 = st.columns(2)
 
 # Columna para Control de luz manual
 with col1:
@@ -89,6 +89,9 @@ with col1:
         message = json.dumps({"Act1": "apaga las luces"})
         client1.publish("Cosplay/Espada", message)
         st.success("Mensaje enviado: apaga las luces")
+
+with col2:
+    st.subheader("XD")
 
 try:
     os.mkdir("temp")
