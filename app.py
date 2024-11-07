@@ -91,7 +91,7 @@ with col1:
         st.success("Mensaje enviado: apaga las luces")
 
 with col2:
-    st.subheader("XD")
+    st.subheader("XD2")
 
 try:
     os.mkdir("temp")
