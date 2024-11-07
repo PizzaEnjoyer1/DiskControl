@@ -73,7 +73,7 @@ if result:
         client1.on_publish = on_publish                            
         client1.connect(broker, port)  
         message = json.dumps({"Act1": recognized_text})
-        ret = client1.publish("Cosplay/Espada", message)
+        ret = client1.publish("Cosplay", message)
 
 # Crear columnas para los controles manuales
 col1, col2 = st.columns(2)
@@ -83,11 +83,11 @@ with col1:
     st.subheader("Control de luz manual")
     if st.button("Encender"):
         message = json.dumps({"Act1": "enciende las luces"})
-        client1.publish("Cosplay/Espada", message)
+        client1.publish("Cosplay", message)
         st.success("Mensaje enviado: enciende las luces")
     if st.button("Apagar"):
         message = json.dumps({"Act1": "apaga las luces"})
-        client1.publish("Cosplay/Espada", message)
+        client1.publish("Cosplay", message)
         st.success("Mensaje enviado: apaga las luces")
 
 with col2:
