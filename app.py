@@ -32,7 +32,7 @@ st.image(image, width = 720)
 st.write("Activa algún modo del traje")
 
 # Botón para reconocimiento de voz
-stt_button = Button(label=" Inicio ", width=400)
+stt_button = Button(label=" Presiona y habla ", width=400)
 
 stt_button.js_on_event("button_click", CustomJS(code="""
     var recognition = new webkitSpeechRecognition();
