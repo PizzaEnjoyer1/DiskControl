@@ -7,113 +7,90 @@ from PIL import Image
 import time
 import paho.mqtt.client as paho
 import json
-import colorsys
 
-def on_publish(cliente, datos_usuario, resultado):  # Callback
-    print("Se ha publicado el dato \n")
+def on_publish(client, userdata, result):  # Callback
+    print("El dato ha sido publicado \n")
     pass
 
-def on_message(cliente, datos_usuario, mensaje):
-    global mensaje_recibido
+def on_message(client, userdata, message):
+    global message_received
     time.sleep(2)
-    mensaje_recibido = str(mensaje.payload.decode("utf-8"))
-    st.write(mensaje_recibido)
+    message_received = str(message.payload.decode("utf-8"))
+    st.write(message_received)
 
 broker = "broker.emqx.io"
 port = 1883
-cliente1 = paho.Client("AppEspadaVoz")
-cliente1.on_message = on_message
+client1 = paho.Client("AppEspadaVoz")
+client1.on_message = on_message
 
 st.title("Interfaces Multimodales")
 st.subheader("CONTROL DE TRAJE")
-imagen = Image.open('Warrior.png')
-st.image(imagen, width=720)
+image = Image.open('Warrior.png')
+st.image(image, width = 720)
 st.write("Activa algún modo del traje")
 
 # Botón para reconocimiento de voz
-boton_stt = Button(label=" Presiona y habla ", width=400)
-boton_stt.js_on_event("button_click", CustomJS(code="""
-    var reconocimiento = new webkitSpeechRecognition();
-    reconocimiento.continuous = true;
-    reconocimiento.interimResults = true;
-
-    reconocimiento.onresult = function (e) {
-        var valor = "";
+stt_button = Button(label=" Presiona y habla ", width=400)
+stt_button.js_on_event("button_click", CustomJS(code="""
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+ 
+    recognition.onresult = function (e) {
+        var value = "";
         for (var i = e.resultIndex; i < e.results.length; ++i) {
             if (e.results[i].isFinal) {
-                valor += e.results[i][0].transcript;
+                value += e.results[i][0].transcript;
             }
         }
-        if (valor != "") {
-            document.dispatchEvent(new CustomEvent("GET_TEXT", { detail: valor }));
+        if (value != "") {
+            document.dispatchEvent(new CustomEvent("GET_TEXT", { detail: value }));
         }
     }
-    reconocimiento.start();
+    recognition.start();
 """))
 
 # Variable para almacenar el texto reconocido
-texto_reconocido = ""
-resultado = streamlit_bokeh_events(
-    boton_stt,
+recognized_text = ""
+result = streamlit_bokeh_events(
+    stt_button,
     events="GET_TEXT",
     key="listen",
     refresh_on_update=False,
     override_height=75,
     debounce_time=0)
-if resultado:
-    if "GET_TEXT" in resultado:
-        texto_reconocido = resultado.get("GET_TEXT").strip()  # Almacena el texto reconocido
-        st.write("Texto reconocido:", texto_reconocido)
+if result:
+    if "GET_TEXT" in result:
+        recognized_text = result.get("GET_TEXT").strip()  # Almacena el texto reconocido
+        st.write("Texto reconocido:", recognized_text)
         # Publica el texto reconocido en MQTT
-        cliente1.on_publish = on_publish
-        cliente1.connect(broker, port)
-        mensaje = json.dumps({"Act1": texto_reconocido})
-        ret = cliente1.publish("Cosplay", mensaje)
+        client1.on_publish = on_publish                            
+        client1.connect(broker, port)  
+        message = json.dumps({"Act1": recognized_text})
+        ret = client1.publish("Cosplay", message)
 
 # Crear columnas para los controles manuales
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3 = st.columns(3)
 
 # Columna para Control de luz manual
 with col1:
     st.subheader("Modo: DEFENSA")
     if st.button("DEFENSA"):
-        mensaje = json.dumps({"Act1": "defensa"})
-        cliente1.publish("Cosplay", mensaje)
+        message = json.dumps({"Act1": "defensa"})
+        client1.publish("Cosplay", message)
         st.success("Modo activado: DEFENSA")
-
 with col2:
     st.subheader("Modo: ATAQUE")
     if st.button("ATAQUE"):
-        mensaje = json.dumps({"Act1": "ataca"})
-        cliente1.publish("Cosplay", mensaje)
+        message = json.dumps({"Act1": "ataca"})
+        client1.publish("Cosplay", message)
         st.success("Modo activado: ATAQUE")
-
 with col3:
     st.subheader("Modo: CALMADO")
     if st.button("CALMADO"):
-        mensaje = json.dumps({"Act1": "calmado"})
-        cliente1.publish("Cosplay", mensaje)
+        message = json.dumps({"Act1": "calmado"})
+        client1.publish("Cosplay", message)
         st.success("Modo activado: CALMADO")
-
-with col4:
-    st.subheader("Modo: LIBRE")
-    if st.button("LIBRE"):
-        mensaje = json.dumps({"Act1": "libre"})
-        cliente1.publish("Cosplay", mensaje)
-        st.success("Modo activado: LIBRE")
-
-# Controles de color para el modo LIBRE
-with st.expander("Selector de Color"):
-    hue, saturation, value = st.slider(
-        "Selecciona el color",
-        0.0, 1.0, (0.0, 1.0, 1.0),
-        format="%0.2f"
-    )
-    r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(hue, saturation, value)]
-    if st.button("Establecer Color"):
-        mensaje = json.dumps({"Act1": "libre", "r": r, "g": g, "b": b})
-        cliente1.publish("Cosplay", mensaje)
-        st.success(f"Color establecido: RGB({r}, {g}, {b})")
 
 try:
     os.mkdir("temp")
