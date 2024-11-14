@@ -24,15 +24,15 @@ client1 = paho.Client("AppEspadaVoz")
 client1.on_message = on_message
 
 st.title("Interfaces Multimodales")
-st.subheader("CONTROL POR VOZ")
+st.subheader("CONTROL DE TRAJE")
 
 image = Image.open('Warrior.png')
 st.image(image, width = 720)
 
-st.write("Toca el Botón y habla ")
+st.write("Activa algún modo del traje")
 
 # Botón para reconocimiento de voz
-stt_button = Button(label=" Inicio ", width=200)
+stt_button = Button(label=" Inicio ", width=400)
 
 stt_button.js_on_event("button_click", CustomJS(code="""
     var recognition = new webkitSpeechRecognition();
@@ -76,22 +76,30 @@ if result:
         ret = client1.publish("Cosplay", message)
 
 # Crear columnas para los controles manuales
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 
 # Columna para Control de luz manual
 with col1:
-    st.subheader("Control de luz manual")
-    if st.button("Encender"):
-        message = json.dumps({"Act1": "enciende las luces"})
-        client1.publish("Cosplay", message)
-        st.success("Mensaje enviado: enciende las luces")
-    if st.button("Apagar"):
-        message = json.dumps({"Act1": "apaga las luces"})
-        client1.publish("Cosplay", message)
-        st.success("Mensaje enviado: apaga las luces")
+    st.subheader("Modo: DEFENSA")
+    if st.button("DEFENSA"):
+        recognized_text = json.dumps({"Act1": "defensa"})
+        client1.publish("Cosplay", recognized_text)
+        st.success("Modo activado: DEFENSA")
+
 
 with col2:
-    st.subheader("XD2")
+    st.subheader("Modo: ATAQUE")
+    if st.button("ATAQUE"):
+        recognized_text = json.dumps({"Act1": "ataque"})
+        client1.publish("Cosplay", recognized_text)
+        st.success("Modo activado: ATAQUE")
+
+with col3:
+    st.subheader("Modo: CALMADO")
+    if st.button("CALMADO"):
+        recognized_text = json.dumps({"Act1": "calmado"})
+        client1.publish("Cosplay", recognized_text)
+        st.success("Modo activado: CALMADO")
 
 try:
     os.mkdir("temp")
