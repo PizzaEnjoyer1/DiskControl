@@ -91,6 +91,12 @@ with col3:
         message = json.dumps({"Act1": "calmado"})
         client1.publish("Cosplay", message)
         st.success("Modo activado: CALMADO")
+        
+st.subheader("APAGAR")
+if st.button("APAGAR"):
+    message = json.dumps({"Act1": "apagar"})
+    client1.publish("Cosplay", message)
+    st.success("Se ha apagado el LED")
 
 try:
     os.mkdir("temp")
