@@ -90,7 +90,7 @@ with col1:
 with col2:
     st.subheader("Modo: ATAQUE")
     if st.button("ATAQUE"):
-        message = json.dumps({"Act1": "ataque"})
+        message = json.dumps({"Act1": "ataca"})
         client1.publish("Cosplay", message)
         st.success("Modo activado: ATAQUE")
 
