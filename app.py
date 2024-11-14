@@ -73,7 +73,7 @@ if result:
         client1.on_publish = on_publish                            
         client1.connect(broker, port)  
         message = json.dumps({"Act1": recognized_text})
-        ret = client1.publish("Cosplay", recognized_text)
+        ret = client1.publish("Cosplay", message)
 
 # Crear columnas para los controles manuales
 col1, col2, col3 = st.columns(3)
@@ -82,23 +82,23 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.subheader("Modo: DEFENSA")
     if st.button("DEFENSA"):
-        recognized_text = json.dumps({"Act1": "defensa"})
-        client1.publish("Cosplay", recognized_text)
+        message = json.dumps({"Act1": "defensa"})
+        client1.publish("Cosplay", message)
         st.success("Modo activado: DEFENSA")
 
 
 with col2:
     st.subheader("Modo: ATAQUE")
     if st.button("ATAQUE"):
-        recognized_text = json.dumps({"Act1": "ataque"})
-        client1.publish("Cosplay", recognized_text)
+        message = json.dumps({"Act1": "ataque"})
+        client1.publish("Cosplay", message)
         st.success("Modo activado: ATAQUE")
 
 with col3:
     st.subheader("Modo: CALMADO")
     if st.button("CALMADO"):
-        recognized_text = json.dumps({"Act1": "calmado"})
-        client1.publish("Cosplay", recognized_text)
+        message = json.dumps({"Act1": "calmado"})
+        client1.publish("Cosplay", message)
         st.success("Modo activado: CALMADO")
 
 try:
