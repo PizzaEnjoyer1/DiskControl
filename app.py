@@ -26,7 +26,7 @@ client1.on_message = on_message
 st.title("Interfaces Multimodales")
 st.subheader("CONTROL POR VOZ")
 
-image = Image.open('voice_ctrl.jpg')
+image = Image.open('Warrior.jpg')
 st.image(image, width=200)
 
 st.write("Toca el Botón y habla ")
