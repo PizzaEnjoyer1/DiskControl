@@ -73,7 +73,7 @@ if result:
         client1.on_publish = on_publish                            
         client1.connect(broker, port)  
         message = json.dumps({"Act1": recognized_text})
-        ret = client1.publish("Cosplay", message)
+        ret = client1.publish("Cosplay", recognized_text)
 
 # Crear columnas para los controles manuales
 col1, col2, col3 = st.columns(3)
