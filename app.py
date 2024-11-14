@@ -27,7 +27,7 @@ st.title("Interfaces Multimodales")
 st.subheader("CONTROL POR VOZ")
 
 image = Image.open('Warrior.png')
-st.image(image, width=200)
+st.image(image, width)
 
 st.write("Toca el Botón y habla ")
 
