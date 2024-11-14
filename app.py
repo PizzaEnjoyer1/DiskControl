@@ -7,6 +7,7 @@ from PIL import Image
 import time
 import paho.mqtt.client as paho
 import json
+import colorsys
 
 def on_publish(cliente, datos_usuario, resultado):  # Callback
     print("Se ha publicado el dato \n")
@@ -101,11 +102,14 @@ with col4:
         cliente1.publish("Cosplay", mensaje)
         st.success("Modo activado: LIBRE")
 
-# Controles RGB para el modo LIBRE
-with st.expander("Controles RGB"):
-    r = st.slider("Rojo", 0, 255, 0)
-    g = st.slider("Verde", 0, 255, 0)
-    b = st.slider("Azul", 0, 255, 0)
+# Controles de color para el modo LIBRE
+with st.expander("Selector de Color"):
+    hue, saturation, value = st.slider(
+        "Selecciona el color",
+        0.0, 1.0, (0.0, 1.0, 1.0),
+        format="%0.2f"
+    )
+    r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(hue, saturation, value)]
     if st.button("Establecer Color"):
         mensaje = json.dumps({"Act1": "libre", "r": r, "g": g, "b": b})
         cliente1.publish("Cosplay", mensaje)
