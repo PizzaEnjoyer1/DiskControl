@@ -1,6 +1,5 @@
 import os
 import streamlit as st
-import streamlit.components.v1 as components
 from bokeh.models.widgets import Button
 from bokeh.models import CustomJS
 from streamlit_bokeh_events import streamlit_bokeh_events
@@ -8,7 +7,6 @@ from PIL import Image
 import time
 import paho.mqtt.client as paho
 import json
-from pygame import mixer
 
 def on_publish(client, userdata, result):  # Callback
     print("El dato ha sido publicado \n")
@@ -70,42 +68,6 @@ if result:
         client1.connect(broker, port)  
         message = json.dumps({"Act1": recognized_text})
         ret = client1.publish("Cosplay", message)
-
-
-
-def load_sounds():
-    """
-    Cargar los sonidos y devolverlos en un diccionario.
-    Los archivos de sonido deben estar en una carpeta 'sounds' en el mismo directorio.
-    """
-    sounds = {
-        'sound1': 'sounds/sound1.mp3',
-        'sound2': 'sounds/sound2.mp3',
-        'sound3': 'sounds/sound3.mp3'
-    }
-    return sounds
-
-def play_sound(sound_file, current_sound):
-    """
-    Reproducir un sonido y detener cualquier otro que esté sonando
-    """
-    try:
-        # Si hay algún sonido reproduciéndose, detenerlo
-        if mixer.music.get_busy():
-            mixer.music.stop()
-        
-        # Si el sonido actual es diferente al nuevo sonido
-        if current_sound != sound_file:
-            mixer.music.load(sound_file)
-            mixer.music.play()
-            return sound_file
-        else:
-            # Si es el mismo sonido, solo lo detenemos
-            return None
-    except Exception as e:
-        st.error(f"Error al reproducir el sonido: {str(e)}")
-        return None
-
 
 # Crear columnas para los controles manuales
 col1, col2, col3 = st.columns(3)
