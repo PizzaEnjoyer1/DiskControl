@@ -9,6 +9,7 @@ import time
 import paho.mqtt.client as paho
 import json
 from pygame import mixer
+import pygame
 
 # Inicializar el mezclador de audio
 mixer.init()
