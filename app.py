@@ -79,6 +79,7 @@ with col1:
         message = json.dumps({"Act1": "defensa"})
         client1.publish("Cosplay", message)
         st.success("Modo activado: DEFENSA")
+        st.audio("audio/defensa.wav")
 with col2:
     st.subheader("Modo: ATAQUE")
     if st.button("ATAQUE"):
