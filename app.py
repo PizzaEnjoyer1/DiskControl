@@ -28,10 +28,10 @@ def load_sounds():
     Cargar los sonidos para cada modo
     """
     sounds = {
-        'defensa': 'sounds/defensa.mp3',
-        'ataque': 'sounds/ataque.mp3',
-        'calmado': 'sounds/calmado.mp3',
-        'apagar': 'sounds/apagar.mp3'
+        'defensa': 'sounds/defensa.wav',
+        'ataque': 'sounds/ataque.wav',
+        'calmado': 'sounds/calmado.wav',
+        'apagar': 'sounds/apagar.wav'
     }
     return sounds
 
