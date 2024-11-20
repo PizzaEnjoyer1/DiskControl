@@ -23,11 +23,10 @@ port = 1883
 client1 = paho.Client("AppEspadaVoz")
 client1.on_message = on_message
 
-st.title("Interfaces Multimodales")
-st.subheader("CONTROL DE TRAJE")
+st.title("DISCO SAGRADO IMPERIAL")
 image = Image.open('Warrior.png')
 st.image(image, width = 720)
-st.write("Activa algún modo del traje")
+st.subheader("Controla el estado del disco, mortal")
 
 # Botón para reconocimiento de voz
 stt_button = Button(label=" Presiona y habla ", width=400)
