@@ -39,7 +39,7 @@ client1.on_message = on_message
 st.title("DISCO SAGRADO IMPERIAL")
 image = Image.open('Warrior.png')
 st.image(image, width = 720)
-st.subheader("Controla el estado del disco, mortal")
+st.subheader("Controla el estado del disco, mortall")
 
 
 # Botón para reconocimiento de voz
