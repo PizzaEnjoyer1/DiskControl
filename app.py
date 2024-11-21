@@ -12,7 +12,6 @@ page_bg_img = """
 <style>
 [data-testid="stAppViewContainer"]{
     background-color: #e5e5f7;
-    opacity: 0.6;
     background-image: radial-gradient(circle at center center, #45f7a4, #e5e5f7), repeating-radial-gradient(circle at center center, #45f7a4, #45f7a4, 10px, transparent 20px, transparent 10px);
     background-blend-mode: multiply;
 }
