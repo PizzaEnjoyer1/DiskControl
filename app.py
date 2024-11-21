@@ -8,7 +8,19 @@ import time
 import paho.mqtt.client as paho
 import json
 
-st.set_page_config(page_bg_color='green')
+page_bg_img = """
+<style>
+[data-testid="stAppViewContainer"]{
+background-color: #e5e5f7;
+opacity: 0.8;
+background-image: radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
+background-size: 10px 10px;
+
+}
+</style> 
+"""
+
+st.markdown(page_bg_img, unsafe_allow_html=True)
 
 def on_publish(client, userdata, result):  # Callback
     print("El dato ha sido publicado \n")
