@@ -9,14 +9,6 @@ import paho.mqtt.client as paho
 import json
 
 
-st.markdown("""
-    <style>
-    [data-testid="stAppViewContainer"] {
-        background-color: #2E8B57;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
 def on_publish(client, userdata, result):  # Callback
     print("El dato ha sido publicado \n")
     pass
