@@ -8,6 +8,15 @@ import time
 import paho.mqtt.client as paho
 import json
 
+
+st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-color: #2E8B57;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 def on_publish(client, userdata, result):  # Callback
     print("El dato ha sido publicado \n")
     pass
@@ -22,14 +31,6 @@ broker = "broker.emqx.io"
 port = 1883
 client1 = paho.Client("AppEspadaVoz")
 client1.on_message = on_message
-
-st.markdown("""
-    <style>
-    .stApp {
-        background-color: #2E8B57;  # Sea Green, similar to jade
-    }
-    </style>
-    """, unsafe_allow_html=True)
 
 st.title("DISCO SAGRADO IMPERIAL")
 image = Image.open('Warrior.png')
