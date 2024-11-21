@@ -8,6 +8,7 @@ import time
 import paho.mqtt.client as paho
 import json
 
+st.set_page_config(page_bg_color='green')
 
 def on_publish(client, userdata, result):  # Callback
     print("El dato ha sido publicado \n")
