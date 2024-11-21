@@ -23,10 +23,19 @@ port = 1883
 client1 = paho.Client("AppEspadaVoz")
 client1.on_message = on_message
 
+st.markdown("""
+    <style>
+    .stApp {
+        background-color: #2E8B57;  # Sea Green, similar to jade
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 st.title("DISCO SAGRADO IMPERIAL")
 image = Image.open('Warrior.png')
 st.image(image, width = 720)
 st.subheader("Controla el estado del disco, mortal")
+
 
 # Botón para reconocimiento de voz
 stt_button = Button(label=" Presiona y habla ", width=400)
