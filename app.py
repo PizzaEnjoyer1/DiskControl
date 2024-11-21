@@ -14,7 +14,7 @@ page_bg_img = """
 background-color: #e5e5f7;
 opacity: 0.8;
 background-image: radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
-background-size: 10px 10px;
+background-size: 1000px 1000px;
 
 }
 </style> 
